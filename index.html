@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+                background: black;
+            }
+
+             #card{
+                background-color: beige;
+                width: 300px; height: 430px;
+                border: 2px;
+                 margin: 100px 400px; 
+                 border-radius: 40px;  
+                transition-property: transform;
+                transition-duration: 1s;
+
+            }
+            .card-body-img{
+                /* width: 270px; height: 200px; */
+                 /* margin: 10px 10px;  */
+                  display: block;
+                 margin-left: auto;
+                 margin-right: auto;
+                 padding-top: 10px;
+                 padding-bottom: 10px;
+                 width: 80%;
+                 height:40% ;
+                  
+            }
+            .card-body-title{
+                /* margin: 10px 125px; */
+                text-align: center;
+              
+            }
+            .card-body-text{
+                /* margin: 10px 50px; */
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+            /* .card-body-title span{
+                color: var(--primary-color);
+                font-weight: 400;
+            } */
+             .card-body-text{
+            font-size: 1.6rem;
+            } 
+            .card-footer{
+                display: flex;
+                justify-content: space-around;
+            }
+            .card-footer-social{
+                text-align: center;
+                margin-top: 1rem;
+                margin: 4px;
+                padding: 2px;
+            }
+            .card-footer-social p{
+                letter-spacing: 1px;
+               
+            }
+            #card:hover{
+                transform: scale(1.3,1.3);
+                box-shadow: 5px 5px 30px 15px grey;
+            
+            } 
+           </style>
+           <title>FLAG</title>
+    </head>
+    <body>
+        <div id="container"></div>
+        <script>
+        const container = document.querySelector('#container');
+        const request= new XMLHttpRequest();
+        request.open('GET',"https://restcountries.eu/rest/v2/name/bhutan");
+        request.send();
+
+        request.addEventListener('load', function(){
+           const [data] = JSON.parse(this.responseText);
+           const htmlData = 
+        `<div id="card">
+            <article class="card">
+                <div class="card-body">
+                    <img src= "${data.flag}" alt="" class="card-body-img" />
+                    <h1 class="card-body-title">
+                        ${data.name} <span> </span>
+                    </h1>
+                    <p class="card-body-text"> Capital:${data.capital} </p>
+                </div>
+                <hr>
+                <div class="card-footer">
+                    <div class="card-footer-social">
+                        <h3> ${data.nativeName} </h3>
+                        <p> Native language</p>
+                    </div>
+                    <div class= "card-footer-social">
+                        <h3> ${data.population} </h3>
+                        <p> Population </p>
+                    </div>
+                    <div class="card-footer-social">
+                        <h3> ${data.demonym} </h3>
+                        <p> Demonym </p>
+                    </div> 
+                </div>           
+            </article>
+        </div>`
+        ;
+        container.insertAdjacentHTML("afterbegin",htmlData)
+        });
+        </script>
+    </body>
+</html>
